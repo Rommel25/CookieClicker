@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         affichage = (TextView)findViewById(R.id.Affichage);
         ImageButton shop = (ImageButton)findViewById(R.id.btn_shop);
 
+        Intent intent = getIntent();
+        compteur = intent.getIntExtra("Compteur",0);
 
         if (savedInstanceState != null){
             compteur =savedInstanceState.getInt("Compteur");
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        affichage.setText(Integer.toString(compteur));
 
         myPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         //myPreferences = getSharedPreferences("android.iut.td1.niggli.cookieclicker", Context.MODE_PRIVATE);

@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:text="10"
             android:textStyle="bold"
+            android:id="@+id/Affichage_prix_miteux"
             />
 
         <View
@@ -83,6 +84,11 @@
             android:layout_height="wrap_content"
             android:text="Buy"
             android:gravity="center"
+            android:id="@+id/achat_CM"
+            android:onClick="Achat_CM"
+            android:background="@color/colorButton"
+            android:textColor="@color/colorText"
+            android:alpha="0.7"
             />
 
     </LinearLayout>
@@ -122,6 +128,24 @@
             />
 
     </LinearLayout>
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:layout_width="200px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:src="@drawable/retour"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:id="@+id/Button_retour"
+        android:layout_margin="50px"
+        />
 
 
 
