@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/fond"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:layout_marginTop="100px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="200px"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+        android:id="@+id/Affichage"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="150px"
+        android:maxWidth="150px"
+        android:src="@drawable/cookie"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="75px"
+        android:layout_marginRight="40px"
+        android:id="@+id/petitlogo"
+        />
+
+    <ImageButton
+        android:layout_width="900px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/cookie"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:id="@+id/btn_cookie"
+        android:onClick="CountUP"
+        />
+
+    <ImageButton
+        android:layout_width="250px"
+        android:layout_height="250px"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/shop"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_marginRight="40px"
+        android:id="@+id/btn_shop"
+        />
+
+
+    <ImageButton
+        android:layout_width="250px"
+        android:layout_height="250px"
+        android:layout_gravity="bottom|left"
+        android:src="@drawable/engrenage"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="20px"
+        android:id="@+id/btn_parametre"
+        />
+</android.support.design.widget.CoordinatorLayout>
