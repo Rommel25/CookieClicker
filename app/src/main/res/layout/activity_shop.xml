@@ -95,7 +95,7 @@
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Nom de l'amélioration :"
+            android:text="Jeune Cookie"
             />
 
         <View
@@ -106,7 +106,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="prix"
+            android:text="100"
             />
 
         <View
