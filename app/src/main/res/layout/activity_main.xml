@@ -34,7 +34,7 @@
         />
 
     <ImageButton
-        android:layout_width="900px"
+        android:layout_width="800px"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/cookie"

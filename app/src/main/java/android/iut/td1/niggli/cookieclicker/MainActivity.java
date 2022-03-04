@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -20,13 +22,14 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     //private Shop shop = new Shop();
     final int REQUEST_CODE = 42;
+    private ImageButton btn;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ImageButton btn = (ImageButton)findViewById(R.id.btn_cookie);
+        btn = (ImageButton)findViewById(R.id.btn_cookie);
         affichage = (TextView)findViewById(R.id.Affichage);
         ImageButton shop = (ImageButton)findViewById(R.id.btn_shop);
 
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void CountUP(View view){
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.btn_anim);
+        btn.startAnimation(myAnim);
         int add = nbr_cm+1;
         compteur+= add;
         affichage.setText(Integer.toString(compteur));
