@@ -3,6 +3,7 @@ package android.iut.td1.niggli.cookieclicker;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +19,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView affichage;
     int nbr_cm = 0;
     int prix_cookie_miteux = 10;
+    int nbr_um = 0;
+    int prix_usine_miteux = 30;
+    int nbr_jc = 0;
+    int prix_jeune_cookie = 100;
     private SharedPreferences myPreferences;
     private SharedPreferences.Editor editor;
     //private Shop shop = new Shop();
     final int REQUEST_CODE = 42;
     private ImageButton btn;
+    private final Handler handler = new Handler();
+    public int compteursec = 0;
 
 
     @Override
@@ -45,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         affichage.setText(Integer.toString(compteur));
-
+        runnable.run();
 
     }
 
@@ -54,15 +61,53 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("Compteur",compteur);
         i.putExtra("nbr_cm",nbr_cm);
         i.putExtra("prix_cm",prix_cookie_miteux);
+        i.putExtra("prix_um",prix_usine_miteux);
+        i.putExtra("nbr_um",nbr_um);
+        i.putExtra("prix_jc",prix_jeune_cookie);
+        i.putExtra("nbr_jc",nbr_jc);
         startActivityForResult(i,REQUEST_CODE);
     }
 
     public void CountUP(View view){
         final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.btn_anim);
         btn.startAnimation(myAnim);
-        int add = nbr_cm+1;
+        int add = 1 + (nbr_cm*1) + (nbr_jc*5);
         compteur+= add;
         affichage.setText(Integer.toString(compteur));
+    }
+
+    public void AutoCount(){
+        compteur += nbr_um;
+        affichage.setText(Integer.toString(compteur));
+    }
+
+    public Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.postDelayed(this,2000);
+            AutoCount();
+        }
+    };
+
+    /**@Override
+    protected void onResume() {
+        super.onResume();
+        runnable.run();
+    }**/
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data!=null) {
+            compteur = (int) data.getIntExtra("C_ret",0);
+            nbr_cm = (int) data.getIntExtra("nbr_cm",0);
+            prix_cookie_miteux = (int) data.getIntExtra("prix_cm",10);
+            nbr_um = (int) data.getIntExtra("nbr_um",0);
+            prix_usine_miteux = (int) data.getIntExtra("prix_um",30);
+            nbr_jc = (int) data.getIntExtra("nbr_jc",nbr_jc);
+            prix_jeune_cookie = (int) data.getIntExtra("prix_jc",prix_jeune_cookie);
+            affichage.setText(Integer.toString(compteur));
+        }
     }
 
     @Override
@@ -77,14 +122,5 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putInt("compteur",compteur);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data!=null) {
-            compteur = (int) data.getIntExtra("C_ret",0);
-            nbr_cm = (int) data.getIntExtra("nbr_cm",0);
-            prix_cookie_miteux = (int) data.getIntExtra("prix_cm",10);
-            affichage.setText(Integer.toString(compteur));
-        }
-    }
+
 }

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,9 +15,12 @@ import android.widget.Toast;
 public class Shop extends AppCompatActivity {
 
     int compteur;
-    int nbrCM = 0;
+    int nbrCM,nbrJC, nbrUM = 0;
     int prix_cookie_miteux = 10;
-    TextView aff_prix_cookie_miteux, affichage_argent, aff_nbr_cm;
+    int prix_usine_miteux = 30;
+    int prix_jeune_cookie = 100;
+    Button btn_cm;
+    TextView aff_prix_cookie_miteux, affichage_argent, aff_nbr_cm, aff_prix_usine_miteux, aff_nbr_um, aff_prix_jeune_cookie;
     /*public int augmentation = 1;
 
     public int getAugmentation() {
@@ -31,17 +37,27 @@ public class Shop extends AppCompatActivity {
         setContentView(R.layout.activity_shop);
         getSupportActionBar().setTitle("Shop du Dr. Sarrazinzin");
         affichage_argent = (TextView)findViewById(R.id.Affichage_shop);
-        aff_nbr_cm = (TextView)findViewById(R.id.nbr_miteux);
-        aff_prix_cookie_miteux = (TextView)findViewById(R.id.Affichage_prix_miteux);
+        //affichage des prix
+        aff_prix_cookie_miteux = (TextView)findViewById(R.id.Affichage_prix_cmiteux);
+        aff_prix_usine_miteux = (TextView)findViewById(R.id.Affichage_prix_usinemiteux);
+        aff_prix_jeune_cookie = (TextView)findViewById(R.id.Affichage_prix_jeune_cookie);
+
+        btn_cm = (Button)findViewById(R.id.achat_CM);
+
         Intent intent = getIntent();
         compteur = intent.getIntExtra("Compteur",0);
         nbrCM = intent.getIntExtra("nbr_cm",0);
         prix_cookie_miteux = intent.getIntExtra("prix_cm",10);
+        prix_usine_miteux = intent.getIntExtra("prix_um",30);
+        nbrUM = intent.getIntExtra("nbr_um",0);
+        prix_jeune_cookie = intent.getIntExtra("prix_jc",100);
+        nbrJC = intent.getIntExtra("nbr_jc",0);
 
 
         affichage_argent.setText(Integer.toString(compteur));
-        aff_nbr_cm.setText("Nbr:"+ nbrCM);
         aff_prix_cookie_miteux.setText("Prix:"+ prix_cookie_miteux);
+        aff_prix_jeune_cookie.setText("Prix : "+prix_jeune_cookie);
+        aff_prix_usine_miteux.setText("Prix:"+ prix_usine_miteux);
 
 
         ImageButton retour = (ImageButton)findViewById(R.id.Button_retour);
@@ -69,22 +85,58 @@ public class Shop extends AppCompatActivity {
         i.putExtra("C_ret",moula);
         i.putExtra("nbr_cm",nbrCM);
         i.putExtra("prix_cm",prix_cookie_miteux);
+        i.putExtra("nbr_um",nbrUM);
+        i.putExtra("prix_um",prix_usine_miteux);
+        i.putExtra("nbr_jc",nbrJC);
+        i.putExtra("prix_jc",prix_jeune_cookie);
         setResult(RESULT_OK,i);
         finish();
     }
 
     public void Achat_CM(View view){
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.btn_anim);
+        btn_cm.startAnimation(myAnim);
         if (compteur > prix_cookie_miteux) {
             compteur = compteur - prix_cookie_miteux;
             affichage_argent.setText(Integer.toString(compteur));
             nbrCM++;
             prix_cookie_miteux = (int) ((int)(prix_cookie_miteux + nbrCM*2)*1.25);
             aff_prix_cookie_miteux.setText("Prix:"+ prix_cookie_miteux);
-            aff_nbr_cm.setText("Nbr:"+ nbrCM);
+            //aff_nbr_cm.setText("Nbr:"+ nbrCM);
+            //setAugmentation(1);
+        }
+        else {
+            Toast.makeText(Shop.this,
+                    "Pas assez de moulaga", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void Achat_JC(View view){
+        if (compteur >= prix_jeune_cookie) {
+            compteur = compteur - prix_jeune_cookie;
+            affichage_argent.setText(Integer.toString(compteur));
+            nbrJC++;
+            prix_cookie_miteux = (int) ((int)(prix_cookie_miteux + nbrCM*2)*1.25);
+            aff_prix_cookie_miteux.setText("Prix:"+ prix_cookie_miteux);
 
             //setAugmentation(1);
         }
         else {
+            Toast.makeText(Shop.this,
+                    "Pas assez de moulaga", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void Achat_UM(View v){
+        if(compteur >= prix_usine_miteux){
+            compteur = compteur - prix_usine_miteux;
+            affichage_argent.setText(Integer.toString(compteur));
+            nbrUM++;
+            prix_usine_miteux = (int) ((int)(prix_usine_miteux + nbrUM*3)*1.5);
+            aff_prix_usine_miteux.setText("Prix :"+prix_usine_miteux);
+            //aff_nbr_um.setText("Nbr : "+nbrUM);
+        }
+        else{
             Toast.makeText(Shop.this,
                     "Pas assez de moulaga", Toast.LENGTH_SHORT).show();
         }

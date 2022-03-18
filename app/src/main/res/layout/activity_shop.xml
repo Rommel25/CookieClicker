@@ -69,9 +69,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="nbr : 0"
+            android:text="+1"
             android:textStyle="bold"
-            android:id="@+id/nbr_miteux"
+            android:id="@+id/Affichage_nbr_miteux"
             />
 
         <View
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:text="prix :10"
             android:textStyle="bold"
-            android:id="@+id/Affichage_prix_miteux"
+            android:id="@+id/Affichage_prix_cmiteux"
             />
 
         <View
@@ -115,6 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="Jeune Cookie"
+            android:textStyle="bold"
             />
 
         <View
@@ -125,7 +126,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100"
+            android:text="+5"
+            android:textStyle="bold"
+            android:id="@+id/Affichage_nbr_jeunec"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="prix : 100"
+            android:textStyle="bold"
+            android:id="@+id/Affichage_prix_jeune_cookie"
             />
 
         <View
@@ -136,8 +152,70 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="Buy"
+            android:gravity="center"
+            android:id="@+id/achat_JC"
+            android:onClick="Achat_JC"
+            android:background="@color/colorButton"
+            android:textColor="@color/colorText"
+            android:alpha="0.7"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30px"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Usine Miteuse"
+            android:textStyle="bold"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.5/sec"
+            android:textStyle="bold"
+            android:id="@+id/nbr_usinemiteux"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="prix :30"
+            android:textStyle="bold"
+            android:id="@+id/Affichage_prix_usinemiteux"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy"
+            android:gravity="center"
+            android:id="@+id/achat_UM"
+            android:onClick="Achat_UM"
+            android:background="@color/colorButton"
+            android:textColor="@color/colorText"
+            android:alpha="0.7"
             />
 
     </LinearLayout>
