@@ -36,13 +36,13 @@ public class Shop extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
         getSupportActionBar().setTitle("Shop du Dr. Sarrazinzin");
-        affichage_argent = (TextView)findViewById(R.id.Affichage_shop);
+        affichage_argent = findViewById(R.id.Affichage_shop);
         //affichage des prix
-        aff_prix_cookie_miteux = (TextView)findViewById(R.id.Affichage_prix_cmiteux);
-        aff_prix_usine_miteux = (TextView)findViewById(R.id.Affichage_prix_usinemiteux);
-        aff_prix_jeune_cookie = (TextView)findViewById(R.id.Affichage_prix_jeune_cookie);
+        aff_prix_cookie_miteux = findViewById(R.id.Affichage_prix_cmiteux);
+        aff_prix_usine_miteux = findViewById(R.id.Affichage_prix_usinemiteux);
+        aff_prix_jeune_cookie = findViewById(R.id.Affichage_prix_jeune_cookie);
 
-        btn_cm = (Button)findViewById(R.id.achat_CM);
+        btn_cm = findViewById(R.id.achat_CM);
 
         Intent intent = getIntent();
         compteur = intent.getIntExtra("Compteur",0);
@@ -60,7 +60,7 @@ public class Shop extends AppCompatActivity {
         aff_prix_usine_miteux.setText("Prix:"+ prix_usine_miteux);
 
 
-        ImageButton retour = (ImageButton)findViewById(R.id.Button_retour);
+        ImageButton retour = findViewById(R.id.Button_retour);
 
 
         if (savedInstanceState != null){
@@ -73,12 +73,10 @@ public class Shop extends AppCompatActivity {
 
 
 
-
-
     }
 
     public void gotoRetour(View v){
-        affichage_argent = (TextView)findViewById(R.id.Affichage_shop);
+        affichage_argent = findViewById(R.id.Affichage_shop);
         String s_moula = affichage_argent.getText().toString();
         int moula = Integer.parseInt(s_moula);
         Intent i = new Intent();
@@ -100,10 +98,11 @@ public class Shop extends AppCompatActivity {
             compteur = compteur - prix_cookie_miteux;
             affichage_argent.setText(Integer.toString(compteur));
             nbrCM++;
-            prix_cookie_miteux = (int) ((int)(prix_cookie_miteux + nbrCM*2)*1.25);
+            prix_cookie_miteux = (int) ((prix_cookie_miteux + nbrCM*2) *1.25);
             aff_prix_cookie_miteux.setText("Prix:"+ prix_cookie_miteux);
-            //aff_nbr_cm.setText("Nbr:"+ nbrCM);
-            //setAugmentation(1);
+            PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
+            PrefConfig.saveCmInPref(getApplicationContext(),nbrCM);
+            PrefConfig.saveCmPInPref(getApplicationContext(),prix_cookie_miteux);
         }
         else {
             Toast.makeText(Shop.this,
@@ -116,9 +115,9 @@ public class Shop extends AppCompatActivity {
             compteur = compteur - prix_jeune_cookie;
             affichage_argent.setText(Integer.toString(compteur));
             nbrJC++;
-            prix_cookie_miteux = (int) ((int)(prix_cookie_miteux + nbrCM*2)*1.25);
+            prix_cookie_miteux = (int) ((prix_cookie_miteux + nbrCM*2) *1.25);
             aff_prix_cookie_miteux.setText("Prix:"+ prix_cookie_miteux);
-
+            PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
             //setAugmentation(1);
         }
         else {
@@ -132,9 +131,11 @@ public class Shop extends AppCompatActivity {
             compteur = compteur - prix_usine_miteux;
             affichage_argent.setText(Integer.toString(compteur));
             nbrUM++;
-            prix_usine_miteux = (int) ((int)(prix_usine_miteux + nbrUM*3)*1.5);
+            prix_usine_miteux = (int) ((prix_usine_miteux + nbrUM*3) *1.5);
             aff_prix_usine_miteux.setText("Prix :"+prix_usine_miteux);
-            //aff_nbr_um.setText("Nbr : "+nbrUM);
+            PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
+            PrefConfig.saveUMInPref(getApplicationContext(),compteur);
+            PrefConfig.saveUMPInPref(getApplicationContext(),compteur);
         }
         else{
             Toast.makeText(Shop.this,

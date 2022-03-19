@@ -69,6 +69,7 @@
         android:adjustViewBounds="true"
         android:layout_marginLeft="20px"
         android:id="@+id/btn_parametre"
+        android:onClick="gotoSettings"
 
         />
 </android.support.design.widget.CoordinatorLayout>
