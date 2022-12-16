@@ -6,11 +6,11 @@ import android.content.SharedPreferences;
 public class PrefConfig {
 
     private static final String MY_PREFERENCE_NAME = "android.iut.td1.niggli.cookieclicker";
-    public static final String PREF_TOTAL_KEY = "pref_total_key";
-    public static final String PREF_CM_KEY = "pref_CM_key";
-    public static final String PREF_CMP_KEY = "pref_CMP_key";
-    public static final String PREF_UM_KEY = "pref_UM_key";
-    public static final String PREF_UMP_KEY = "pref_UMP_key";
+    public static final String PREF_TOTAL_KEY = "pref_cptke_key";
+    public static final String PREF_CM_KEY = "pref_CMiteuxke_key";
+    public static final String PREF_CMP_KEY = "pref_CMitPrixke_key";
+    public static final String PREF_UM_KEY = "pref_UMiteuxke_key";
+    public static final String PREF_UMP_KEY = "pref_UMitPrixke_key";
 
     public static void saveTotalInPref(Context context, int total) {
         SharedPreferences pref = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -58,12 +58,17 @@ public class PrefConfig {
     public static void saveUMPInPref(Context context, int total) {
         SharedPreferences pref = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(PREF_UM_KEY, total);
+        editor.putInt(PREF_UMP_KEY, total);
         editor.apply();
     }
 
     public static int loadUMFromPref(Context context) {
         SharedPreferences pref = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
         return pref.getInt(PREF_UM_KEY, 0);
+    }
+
+    public static int loadUMPFromPref(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        return pref.getInt(PREF_UMP_KEY, 30);
     }
 }

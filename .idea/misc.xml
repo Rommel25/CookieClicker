@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/pauln/AndroidStudioProjects/CookieClicker/app/src/main/res/layout/activity_main.xml" value="0.1102077687443541" />
+        <entry key="..\:/Users/pauln/AndroidStudioProjects/CookieClicker/app/src/main/res/layout-land/activity_main.xml" value="0.31040564373897706" />
+        <entry key="..\:/Users/pauln/AndroidStudioProjects/CookieClicker/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/pauln/AndroidStudioProjects/CookieClicker/app/src/main/res/layout/activity_settings.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/pauln/AndroidStudioProjects/CookieClicker/app/src/main/res/layout/activity_shop.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/pauln/AndroidStudioProjects/CookieClicker/app/src/main/res/menu/main.xml" value="0.6" />
       </map>
     </option>
   </component>

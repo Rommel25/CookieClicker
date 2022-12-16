@@ -15,9 +15,9 @@ import android.widget.Toast;
 public class Shop extends AppCompatActivity {
 
     int compteur;
-    int nbrCM,nbrJC, nbrUM = 0;
+    int nbrCM,nbrJC, nbrUM;
     int prix_cookie_miteux = 10;
-    int prix_usine_miteux = 30;
+    int prix_usine_miteuse = 30;
     int prix_jeune_cookie = 100;
     Button btn_cm;
     TextView aff_prix_cookie_miteux, affichage_argent, aff_nbr_cm, aff_prix_usine_miteux, aff_nbr_um, aff_prix_jeune_cookie;
@@ -39,7 +39,7 @@ public class Shop extends AppCompatActivity {
         affichage_argent = findViewById(R.id.Affichage_shop);
         //affichage des prix
         aff_prix_cookie_miteux = findViewById(R.id.Affichage_prix_cmiteux);
-        aff_prix_usine_miteux = findViewById(R.id.Affichage_prix_usinemiteux);
+        aff_prix_usine_miteux = findViewById(R.id.Affichage_prix_usine_miteuse);
         aff_prix_jeune_cookie = findViewById(R.id.Affichage_prix_jeune_cookie);
 
         btn_cm = findViewById(R.id.achat_CM);
@@ -48,7 +48,7 @@ public class Shop extends AppCompatActivity {
         compteur = intent.getIntExtra("Compteur",0);
         nbrCM = intent.getIntExtra("nbr_cm",0);
         prix_cookie_miteux = intent.getIntExtra("prix_cm",10);
-        prix_usine_miteux = intent.getIntExtra("prix_um",30);
+        prix_usine_miteuse = intent.getIntExtra("prix_um",30);
         nbrUM = intent.getIntExtra("nbr_um",0);
         prix_jeune_cookie = intent.getIntExtra("prix_jc",100);
         nbrJC = intent.getIntExtra("nbr_jc",0);
@@ -57,7 +57,7 @@ public class Shop extends AppCompatActivity {
         affichage_argent.setText(Integer.toString(compteur));
         aff_prix_cookie_miteux.setText("Prix:"+ prix_cookie_miteux);
         aff_prix_jeune_cookie.setText("Prix : "+prix_jeune_cookie);
-        aff_prix_usine_miteux.setText("Prix:"+ prix_usine_miteux);
+        aff_prix_usine_miteux.setText("Prix:"+ 30);
 
 
         ImageButton retour = findViewById(R.id.Button_retour);
@@ -72,7 +72,6 @@ public class Shop extends AppCompatActivity {
         }
 
 
-
     }
 
     public void gotoRetour(View v){
@@ -84,7 +83,7 @@ public class Shop extends AppCompatActivity {
         i.putExtra("nbr_cm",nbrCM);
         i.putExtra("prix_cm",prix_cookie_miteux);
         i.putExtra("nbr_um",nbrUM);
-        i.putExtra("prix_um",prix_usine_miteux);
+        i.putExtra("prix_um",prix_usine_miteuse);
         i.putExtra("nbr_jc",nbrJC);
         i.putExtra("prix_jc",prix_jeune_cookie);
         setResult(RESULT_OK,i);
@@ -100,9 +99,6 @@ public class Shop extends AppCompatActivity {
             nbrCM++;
             prix_cookie_miteux = (int) ((prix_cookie_miteux + nbrCM*2) *1.25);
             aff_prix_cookie_miteux.setText("Prix:"+ prix_cookie_miteux);
-            PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
-            PrefConfig.saveCmInPref(getApplicationContext(),nbrCM);
-            PrefConfig.saveCmPInPref(getApplicationContext(),prix_cookie_miteux);
         }
         else {
             Toast.makeText(Shop.this,
@@ -115,8 +111,8 @@ public class Shop extends AppCompatActivity {
             compteur = compteur - prix_jeune_cookie;
             affichage_argent.setText(Integer.toString(compteur));
             nbrJC++;
-            prix_cookie_miteux = (int) ((prix_cookie_miteux + nbrCM*2) *1.25);
-            aff_prix_cookie_miteux.setText("Prix:"+ prix_cookie_miteux);
+            prix_jeune_cookie = (int) ((prix_jeune_cookie + nbrJC*2) *1.25);
+            aff_prix_jeune_cookie.setText("Prix:"+ prix_jeune_cookie);
             PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
             //setAugmentation(1);
         }
@@ -127,15 +123,13 @@ public class Shop extends AppCompatActivity {
     }
 
     public void Achat_UM(View v){
-        if(compteur >= prix_usine_miteux){
-            compteur = compteur - prix_usine_miteux;
+        if(compteur >= prix_usine_miteuse){
+            compteur = compteur - prix_usine_miteuse;
             affichage_argent.setText(Integer.toString(compteur));
             nbrUM++;
-            prix_usine_miteux = (int) ((prix_usine_miteux + nbrUM*3) *1.5);
-            aff_prix_usine_miteux.setText("Prix :"+prix_usine_miteux);
+            prix_usine_miteuse = (int) ((30 + nbrUM*3) *1.5);
+            aff_prix_usine_miteux.setText("Prix :"+prix_usine_miteuse);
             PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
-            PrefConfig.saveUMInPref(getApplicationContext(),compteur);
-            PrefConfig.saveUMPInPref(getApplicationContext(),compteur);
         }
         else{
             Toast.makeText(Shop.this,
@@ -163,4 +157,11 @@ public class Shop extends AppCompatActivity {
         savedInstanceState.putInt("NBR_CM",nbrCM);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
+        PrefConfig.saveCmPInPref(getApplicationContext(),prix_cookie_miteux);
+        PrefConfig.saveUMPInPref(getApplicationContext(),prix_usine_miteuse);
+    }
 }

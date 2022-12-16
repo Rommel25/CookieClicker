@@ -1,13 +1,17 @@
 package android.iut.td1.niggli.cookieclicker;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     int nbr_cm = 0;
     int prix_cookie_miteux = 10;
     int nbr_um = 0;
-    int prix_usine_miteux = 30;
+    int prix_usine_miteuse = 30;
     int nbr_jc = 0;
     int prix_jeune_cookie = 100;
     private SharedPreferences myPreferences;
@@ -32,19 +36,12 @@ public class MainActivity extends AppCompatActivity {
     private final Handler handler = new Handler();
     public int compteursec = 0;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn = findViewById(R.id.btn_cookie);
         affichage = findViewById(R.id.Affichage);
-        ImageButton shop = findViewById(R.id.btn_shop);
-
-        //Intent intent = getIntent();
-        //compteur = intent.getIntExtra("Compteur",0);
-        //nbr_cm = intent.getIntExtra("NBR_CM",0);
-        //prix_cookie_miteux = intent.getIntExtra("Prix",prix_cookie_miteux);
 
 
         if (savedInstanceState != null){
@@ -55,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         nbr_cm = PrefConfig.loadCMFromPref(this);
         prix_cookie_miteux = PrefConfig.loadCMPFromPref(this);
         nbr_um = PrefConfig.loadUMFromPref(this);
+        prix_usine_miteuse = PrefConfig.loadUMPFromPref(this);
         affichage.setText(Integer.toString(compteur));
         runnable.run();
 
@@ -62,27 +60,48 @@ public class MainActivity extends AppCompatActivity {
         myPreferences = getSharedPreferences("android.iut.td1.niggli.cookieclicker", Activity.MODE_PRIVATE);
         editor = myPreferences.edit();
 
+
+     /**   AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+        notificationIntent.addCategory("android.intent.category.DEFAULT");
+
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+
+        cal.add(Calendar.MINUTE, Calendar.HOUR);
+        alarmManager.setRepeating(AlarmManager.RTC, cal.getTimeInMillis(), 6000000, broadcast);**/
+
+
     }
 
-    /**public void SaveCompteur(){
-        myPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = myPreferences.edit();
-        editor.putInt("moulagashared", 0);
-        editor.commit();
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
-    public void LoadCompteur(){
-        myPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        compteur = myPreferences.getInt("moulagashared", 0);
-        affichage.setText(Integer.toString(compteur));
-    }**/
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch(menuItem.getItemId()){
+            case R.id.info:
+                new AlertDialog.Builder(getApplicationContext())
+                        .setTitle("CookieClicker")
+                        .setMessage("This project has been made by Paul Niggli");
+            case R.id.github:
+                Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Rommel25/CookieClicker"));
+                startActivity(browser);
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
+
 
     public void gotoShop(View v){
         Intent i = new Intent(MainActivity.this, Shop.class);
         i.putExtra("Compteur",compteur);
         i.putExtra("nbr_cm",nbr_cm);
         i.putExtra("prix_cm",prix_cookie_miteux);
-        i.putExtra("prix_um",prix_usine_miteux);
+        i.putExtra("prix_um",prix_usine_miteuse);
         i.putExtra("nbr_um",nbr_um);
         i.putExtra("prix_jc",prix_jeune_cookie);
         i.putExtra("nbr_jc",nbr_jc);
@@ -103,14 +122,20 @@ public class MainActivity extends AppCompatActivity {
         PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
         PrefConfig.saveCmInPref(getApplicationContext(),nbr_cm);
         PrefConfig.saveCmPInPref(getApplicationContext(),prix_cookie_miteux);
-        //PrefConfig.saveTotalInPref(getApplicationContext(),nbr_jc);
+        PrefConfig.saveUMInPref(getApplicationContext(),nbr_um);
+        PrefConfig.saveUMPInPref(getApplicationContext(),prix_usine_miteuse);
+
     }
 
     public void AutoCount(){
         compteur += nbr_um;
         affichage.setText(Integer.toString(compteur));
-        PrefConfig.saveUMInPref(getApplicationContext(),nbr_um);
         PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
+        PrefConfig.saveCmInPref(getApplicationContext(),nbr_cm);
+        PrefConfig.saveCmPInPref(getApplicationContext(),prix_cookie_miteux);
+        PrefConfig.saveUMInPref(getApplicationContext(),nbr_um);
+        PrefConfig.saveUMPInPref(getApplicationContext(),prix_usine_miteuse);
+
     }
 
     public Runnable runnable = new Runnable() {
@@ -121,11 +146,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    /**@Override
-    protected void onResume() {
-        super.onResume();
-        runnable.run();
-    }**/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -135,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             nbr_cm = data.getIntExtra("nbr_cm",0);
             prix_cookie_miteux = data.getIntExtra("prix_cm",10);
             nbr_um = data.getIntExtra("nbr_um",0);
-            prix_usine_miteux = data.getIntExtra("prix_um",30);
+            prix_usine_miteuse = data.getIntExtra("prix_um",30);
             nbr_jc = data.getIntExtra("nbr_jc",nbr_jc);
             prix_jeune_cookie = data.getIntExtra("prix_jc",prix_jeune_cookie);
             affichage.setText(Integer.toString(compteur));
@@ -154,5 +174,14 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putInt("compteur",compteur);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PrefConfig.saveTotalInPref(getApplicationContext(),compteur);
+        PrefConfig.saveCmInPref(getApplicationContext(),nbr_cm);
+        PrefConfig.saveCmPInPref(getApplicationContext(),prix_cookie_miteux);
+        PrefConfig.saveUMInPref(getApplicationContext(),nbr_um);
+        PrefConfig.saveUMPInPref(getApplicationContext(),prix_usine_miteuse);
+    }
 
 }
