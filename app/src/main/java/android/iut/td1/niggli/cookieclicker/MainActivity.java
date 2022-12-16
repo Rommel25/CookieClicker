@@ -108,10 +108,6 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(i,REQUEST_CODE);
     }
 
-    public void gotoSettings(View v){
-        Intent i = new Intent(MainActivity.this, Settings.class);
-        startActivity(i);
-    }
 
     public void CountUP(View view){
         final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.btn_anim);

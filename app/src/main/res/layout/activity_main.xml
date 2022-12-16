@@ -57,19 +57,4 @@
         android:id="@+id/btn_shop"
         android:onClick="gotoShop"
         />
-
-
-    <ImageButton
-        android:layout_width="250px"
-        android:layout_height="250px"
-        android:layout_gravity="bottom|left"
-        android:src="@drawable/engrenage"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:layout_marginLeft="20px"
-        android:id="@+id/btn_parametre"
-        android:onClick="gotoSettings"
-
-        />
 </android.support.design.widget.CoordinatorLayout>
